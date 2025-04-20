@@ -50,12 +50,8 @@ app.use((err: any, _req: Request, res: Response, _next: express.NextFunction) =>
   res.status(status).json({ message });
 });
 
-// For serverless function handler
-export default async function handler(req: Request, res: Response) {
-  // This is needed for Vercel serverless functions
-  return new Promise((resolve) => {
-    app(req, res, () => {
-      resolve(undefined);
-    });
-  });
+// For serverless function handler - this handles the root /api path
+export default function handler(req: Request, res: Response) {
+  // Simple health check
+  res.status(200).json({ status: 'ok', message: 'API is running' });
 }
